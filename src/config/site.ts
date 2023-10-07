@@ -8,6 +8,6 @@ export const siteConfig: SiteConfig = {
   ogImage: "https://avatars.githubusercontent.com/u/77154365?v=4",
   links: {
     twitter: "https://twitter.com/rds_agi",
-    github: "https://github.com/rudrodip",
+    github: "https://github.com/rudrodip/NexusOS",
   },
 }
