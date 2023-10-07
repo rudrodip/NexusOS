@@ -1,0 +1,6 @@
+{
+  "editor.acceptSuggestionOnEnter": "on",
+  "search.useParentIgnoreFiles": false,
+  "search.useIgnoreFiles": true,
+  "search.useGlobalIgnoreFiles": true
+}
