@@ -2,7 +2,7 @@
 
 import { setFormData } from "@/redux/slices/rankSlice";
 import { languages } from "@/config/languages";
-import { tags } from "@/config/tags";
+import { categories } from "@/config/categories";
 import { UserProfile } from "@/components/profile/user-profile";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
@@ -81,10 +81,10 @@ export default function Page() {
                       </FormControl>
                       <SelectContent>
                         <ScrollArea className="h-72">
-                          {tags.map((tag, id) => {
+                          {categories.map((option, id) => {
                             return (
-                              <SelectItem value={tag.value} key={id}>
-                                {tag.label}
+                              <SelectItem value={option.value} key={id}>
+                                {option.label}
                               </SelectItem>
                             );
                           })}
