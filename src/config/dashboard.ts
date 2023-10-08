@@ -7,9 +7,16 @@ export const dashboardConfig: DashboardConfig = {
       href: "/docs",
     },
     {
-      title: "Support",
-      href: "/support",
-      disabled: true,
+      title: "Find Contributors",
+      href: "/find",
+    },
+    {
+      title: "Projects",
+      href: "/projects",
+    },
+    {
+      title: "Research Papers",
+      href: "/papers",
     },
   ],
   sidebarNav: [
@@ -23,27 +30,10 @@ export const dashboardConfig: DashboardConfig = {
       href: "/projects",
       icon: "billing",
     },
+    {
+      title: "Find Contributors",
+      href: "/find",
+      icon: "help",
+    },
   ],
-  workspaceNav: [
-    {
-      title: "Workspaces",
-      href: "/workspaces",
-      icon: "post",
-    },
-    {
-      title: "Studio",
-      href: "/studio",
-      icon: "post",
-    },
-    {
-      title: "Billing",
-      href: "/pricing",
-      icon: "billing",
-    },
-    {
-      title: "Settings",
-      href: "/workspaces/settings",
-      icon: "settings",
-    },
-  ]
 }

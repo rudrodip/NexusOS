@@ -18,13 +18,13 @@ export const featureConfig: FeaturesConfig = {
       imageUrl: "/images/features/feature3.png"
     },
     {
-      name: "Easy Research Papers",
+      name: "Research Papers Made Easy",
       desc: "AI explains research papers and answers questions",
       imageUrl: "/images/features/feature4.png"
     },
     {
-      name: "Network Builder",
-      desc: "End-to-end encrypted private messages to contributors",
+      name: "AI Recommendation",
+      desc: "AI recommends best contributors",
       imageUrl: "/images/features/feature5.png"
     },
     {
