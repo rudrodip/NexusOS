@@ -5,6 +5,7 @@ import { getUser } from "@/lib/github";
 import { Separator } from "@/components/ui/separator";
 import { ProfileBanner } from "@/components/profile/profile-banner";
 import { GithubRepos } from "@/components/profile/github-repos";
+import { UpdateProfile } from "@/components/profile/update-profile";
 
 export default async function Page({
   params,
@@ -43,6 +44,7 @@ export default async function Page({
         avatar_url={userData.avatarUrl}
         html_url={userData.bioHTML}
       />
+      <UpdateProfile />
       <Separator className="my-6" />
       <GithubRepos repos={pinnedRepos} author={params.username} />
     </section>
