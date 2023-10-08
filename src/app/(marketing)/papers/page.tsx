@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { ZenodoQueryParams } from "@/types/zenodo";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
