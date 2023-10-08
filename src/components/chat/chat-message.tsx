@@ -1,12 +1,14 @@
+import { useSession } from "next-auth/react"
 import { Message } from "ai";
 import remarkGfm from "remark-gfm";
 import remarkMath from "remark-math";
-
+import Image from "next/image";
 import { cn } from "@/lib/utils";
 import { SuggestedText } from "./suggested-text";
 import { CodeBlock } from "@/components/ui/codeblock";
 import { MemoizedReactMarkdown } from "@/components/chat/markdown";
 import { IconOpenAI, IconUser } from "@/components/ui/icons";
+import { Icons } from "@/components/icons";
 import { ChatMessageActions } from "@/components/chat/chat-message-action";
 
 export interface ChatMessageProps {
@@ -14,17 +16,27 @@ export interface ChatMessageProps {
 }
 
 export function ChatMessage({ message, ...props }: ChatMessageProps) {
+  const { data: session, status } = useSession()
+
   return (
     <div className={cn("group relative mb-4 flex items-start")} {...props}>
       <div
         className={cn(
-          "flex h-8 w-8 shrink-0 select-none items-center justify-center rounded-md border shadow",
+          "flex h-8 w-8 shrink-0 select-none items-center justify-center rounded-md shadow",
           message.role === "user"
-            ? "bg-background"
-            : "bg-primary text-primary-foreground"
+            ? "bg-background border"
+            : "text-primary-foreground"
         )}
       >
-        {message.role === "user" ? <IconUser /> : <IconOpenAI />}
+        {message.role === "user" ? (
+          session?.user?.image ? (
+            <Image src={session.user.image} alt="user" width={30} height={30} />
+          ) : (
+            <IconUser />
+          )
+        ) : (
+          <Icons.bot />
+        )}
       </div>
       <div className="flex-1 px-1 ml-4 space-y-2 overflow-hidden">
         <MemoizedReactMarkdown
@@ -48,7 +60,7 @@ export function ChatMessage({ message, ...props }: ChatMessageProps) {
               children,
               ...props
             }: React.HTMLAttributes<HTMLHeadingElement>) => (
-              <SuggestedText text={String(children)}/>
+              <SuggestedText text={String(children)} />
             ),
             h3: ({
               className,
