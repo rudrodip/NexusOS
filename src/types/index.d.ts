@@ -76,3 +76,23 @@ export type labelValuePair = {
   value: string;
   label: string;
 }
+
+export type User = {
+  id: string;
+  name: string;
+  email: string;
+  emailVerified: boolean | null;
+  image: string;
+  createdAt: Date;
+  updatedAt: Date;
+  languages: string[];
+  followers: number;
+  totalStars: number;
+  totalForks: number;
+  totalPullReqs: number;
+  totalCommits: number;
+  totalIssueContrib: number;
+  totalRepoContrib: number;
+  bio: string;
+  domains: string[];
+};

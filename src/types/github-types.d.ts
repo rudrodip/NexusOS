@@ -44,3 +44,31 @@ export type userData = {
   bioHTML: string;
   websiteUrl: string | null;
 };
+
+export type RepoInfoRes = {
+  user: {
+    followers: {
+      totalCount: number;
+    }
+    repositories: {
+      nodes: {
+        forkCount: number;
+        stargazerCount: number;
+        primaryLanguage: {
+          name: string;
+        };
+      }[];
+    };
+  };
+};
+
+export type ContribStats = {
+  user: {
+    contributionsCollection: {
+      totalCommitContributions: number;
+      totalPullRequestContributions: number;
+      totalRepositoryContributions: number;
+      totalIssueContributions: number;
+    }
+  };
+};
