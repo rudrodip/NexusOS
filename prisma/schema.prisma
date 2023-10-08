@@ -47,11 +47,37 @@ model User {
   image         String?
   createdAt     DateTime  @default(now()) @map(name: "created_at")
   updatedAt     DateTime  @default(now()) @map(name: "updated_at")
-  skills        String[]
-  tags          String[]
 
-  accounts     Account[]
-  sessions     Session[]
+  languages         String[]
+  followers         Int?
+  totalStars        Int?
+  totalForks        Int?
+  totalPullReqs     Int?
+  totalCommits      Int?
+  totalIssueContrib Int?
+  totalRepoContrib  Int?
+
+  bio String? @db.Text
+  domains String[]
+
+  accounts         Account[]
+  sessions         Session[]
+  messagesSent     Message[] @relation(name: "sender")
+  messagesReceived Message[] @relation(name: "recver")
 
   @@map(name: "users")
+}
+
+model Message {
+  id        String   @id @default(uuid())
+  message   String
+  authorId  String?
+  recverId  String?
+  email     String?
+  createdAt DateTime @default(now())
+
+  author User? @relation(name: "sender", fields: [authorId], references: [id])
+  recver User? @relation(name: "recver", fields: [recverId], references: [id])
+
+  @@map(name: "messages")
 }
