@@ -1,6 +1,6 @@
 "use client";
 
-import { tags } from "@/config/tags";
+import { categories } from "@/config/categories";
 import { cn } from "@/lib/utils";
 import { CaretSortIcon, CheckIcon } from "@radix-ui/react-icons";
 import { Button } from "../ui/button";
@@ -128,7 +128,7 @@ export const UpdateProfile = () => {
                     <FormControl>
                       <Combobox
                         caption="domains"
-                        options={tags}
+                        options={categories}
                         setDomain={setDomain}
                       />
                     </FormControl>
