@@ -11,7 +11,7 @@ import { useToast } from "@/components/ui/use-toast";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
 import { Card } from "@/components/ui/card";
-import { useAppDispatch } from "@/redux/hooks";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { setMessages } from "@/redux/slices/chatSlice";
 
 export interface ChatProps extends React.ComponentProps<"div"> {
