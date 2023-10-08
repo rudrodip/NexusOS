@@ -1,8 +1,11 @@
 import { FeatureOne } from "./feature-one";
 import { FeatureTwo } from "./feature-two";
 import { FeatureCardOne } from "@/components/feature/feeatureCardOne";
+import { FeatureCardTwo } from "./featureCardTwo";
 import { HeroPopup } from "../header/hero-popup-animation";
 import { CardGroup } from "../card-group/card-group";
+import { FeaturePopup1 } from "./featurePop1";
+import { FeaturePopup2 } from "./featurePop2";
 
 export const Features = () => {
   return (
@@ -18,26 +21,26 @@ export const Features = () => {
         FeatureCard={FeatureCardOne}
       />
       <FeatureTwo 
-        desc="GitHub Codespaces offers a complete dev environment in seconds, so you can code, build, test, and open pull requests from any repo anywhere."
+        desc="Nexbee, the integrated AI can not only explain research papers but also can answer questions about it. Give it a try"
         punchques="Did you know?"
-        punchlines={["22% increase", "in developer productivity"]}
+        punchlines={["Nexbee ", "can explain research paper also"]}
         link={{text: "Checkout", url: "idk"}}
-        FeatureCard={HeroPopup}
+        FeatureCard={FeaturePopup1}
       />
       <FeatureOne
-        name="Contribute to OS"
+        name="Repository Explained in seconds"
         desc={{
-          title: "Collaborate Openly",
-          sub: "some blah blah stuff val lage na dhur",
+          title: "Nexbee ",
+          sub: "can explain complex repository easily for you in seconds.",
         }}
-        FeatureCard={FeatureCardOne}
+        FeatureCard={FeatureCardTwo}
       />
       <FeatureTwo 
-        desc="GitHub Codespaces offers a complete dev environment in seconds, so you can code, build, test, and open pull requests from any repo anywhere."
-        punchques="Did you know?"
-        punchlines={["22% increase", "in developer productivity"]}
+        desc="Nexbee can answer almost anything you want to know, from any scientific topic to niche programming topics"
+        punchques="Ask Nexbee Anything"
+        punchlines={["Try asking", "anything you want to know"]}
         link={{text: "Checkout", url: "idk"}}
-        FeatureCard={HeroPopup}
+        FeatureCard={FeaturePopup2}
       />
     </section>
   );

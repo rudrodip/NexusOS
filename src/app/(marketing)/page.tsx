@@ -8,8 +8,6 @@ export default function Home() {
     <main>
       <HeroSection />
       <Features />
-      <Features />
-      <Features />
     </main>
   );
 }

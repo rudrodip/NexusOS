@@ -27,7 +27,7 @@ const image = {
   },
 };
 
-export const HeroPopup = () => {
+export const FeaturePopup1 = () => {
   return (
     <motion.section
       className="relative w-[500px] h-[500px]"
@@ -36,13 +36,13 @@ export const HeroPopup = () => {
       whileInView="show"
     >
       <motion.div className="absolute right-0 -top-20" variants={image}>
-        <Image src="/images/popover/ai-find.png" alt="image" width={600} height={600} className="shadow-lg rounded-lg" />
+        <Image src="/images/popover/ai-paper.png" alt="image" width={600} height={600} className="shadow-lg rounded-lg" />
       </motion.div>
       <motion.div className="absolute -left-10 bottom-3" variants={image}>
         <Image src="/images/popover/paper-page.png" alt="image" width={200} height={200} className="shadow-lg rounded-lg" />
       </motion.div>
       <motion.div className="absolute -right-10 top-3" variants={image}>
-        <Image src="/gifs/ai-repo.gif" alt="image" width={200} height={200} className="shadow-lg rounded-lg" />
+        <Image src="/gifs/ai-paper.gif" alt="image" width={200} height={200} className="shadow-lg rounded-lg" />
       </motion.div>
     </motion.section>
   );
