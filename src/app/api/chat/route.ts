@@ -16,11 +16,13 @@ export async function POST(req: NextRequest) {
   const json = await req.json()
   const { messages, previewToken } = json
   const token = await getToken({ req });
-  if (!token) {
-    return new Response('Unauthorized', {
-      status: 401
-    })
-  }
+
+  // letting unauthorized people play a little, haha
+  // if (!token) {
+  //   return new Response('Unauthorized', {
+  //     status: 401
+  //   })
+  // }
 
   if (previewToken) {
     configuration.apiKey = previewToken
