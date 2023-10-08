@@ -84,6 +84,9 @@ export const Icons = {
   logo: ({ ...props }: LucideProps) => (
     <Image src="/logo/main-logo.png" alt="favicon" width={30} height={30} />
   ),
+  bot: ({ ...props }: LucideProps) => (
+    <Image src="/logo/bot.png" alt="bot" width={30} height={30} className="rounded-full" />
+  ),
   twitter: Twitter,
   check: Check,
 };
