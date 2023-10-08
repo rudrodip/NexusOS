@@ -4,6 +4,7 @@ import chatSlice from './slices/chatSlice'
 import projectsSlice from './slices/projectsSlice'
 import recordSlice from './slices/recordSlice'
 import repoSlice from './slices/repoSlice'
+import rankSlice from './slices/rankSlice'
 
 export const store = configureStore({
   reducer: {
@@ -12,6 +13,7 @@ export const store = configureStore({
     projectsSlice,
     recordSlice,
     repoSlice,
+    rankSlice,
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware({
     serializableCheck: false
