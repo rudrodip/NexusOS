@@ -4,6 +4,8 @@ import {
   userDataResponse,
   Repository,
   ReposGraphQLResponse,
+  RepoInfoRes,
+  ContribStats
 } from "@/types/github-types";
 
 export const getUser = async (
@@ -118,22 +120,81 @@ export const getRecentRepos = async (
   return response.repositoryOwner?.repositories.nodes;
 };
 
-// export const getRecentPRbyUser = async (username: string): Promise<Repository[] | undefined> => {
-//   const response = await graphql<{ data: ReposGraphQLResponse }>(
-//     `
-//     user(login: ${username}){
-//       pullRequests(
-//         first: 100
-//         orderBy: {field: CREATED_AT, direction: DESC}
-//       ){
-//         edges{
-//           node{
-//             title
-//           }
-//         }
-//       }
-//     }
-//     `
-//   )
-//   return response.data.repositoryOwner?.repositories.nodes
-// }
+export const getContribStats = async (
+  username: string | null | undefined,
+  access_token: string | null | undefined
+) => {
+  const response = await graphql<ContribStats>(
+    `
+    {
+      user(login: "${username}"){
+        contributionsCollection{
+          totalCommitContributions
+          totalPullRequestContributions
+          totalRepositoryContributions
+          totalIssueContributions
+        }
+      }
+    }
+    `,
+    {
+      headers: {
+        authorization: `token ${access_token}`,
+      },
+    }
+  );
+
+  return { 
+    totalCommitContributions: response.user.contributionsCollection.totalCommitContributions,
+    totalPullRequestContributions: response.user.contributionsCollection.totalPullRequestContributions,
+    totalRepositoryContributions: response.user.contributionsCollection.totalRepositoryContributions,
+    totalIssueContributions: response.user.contributionsCollection.totalIssueContributions,
+   };
+}
+
+export const getRepoInfo = async (
+  username: string | null | undefined,
+  access_token: string | null | undefined
+) => {
+  const response = await graphql<RepoInfoRes>(
+    `
+    {
+      user(login: "${username}") {
+        followers{
+          totalCount
+        }
+        repositories(first: 100, isFork: false, privacy: PUBLIC, ownerAffiliations: OWNER) {
+          nodes {
+            forkCount
+            stargazerCount
+            primaryLanguage {
+              name
+            }
+          }
+        }
+      }
+    }
+    `,
+    {
+      headers: {
+        authorization: `token ${access_token}`,
+      },
+    }
+  );
+
+  let totalForks = 0;
+  let totalStars = 0;
+  let languages: string[] = [];
+
+  response.user.repositories.nodes.forEach((repo) => {
+    totalForks += repo.forkCount;
+    totalStars += repo.stargazerCount;
+    repo.primaryLanguage?.name && languages.push(repo.primaryLanguage.name);
+  });
+
+  let tempSet = new Set(languages);
+  languages = Array.from(tempSet); // Convert the Set back to an array
+
+  return { followers: response.user.followers.totalCount, totalForks, totalStars, languages };
+};
+
