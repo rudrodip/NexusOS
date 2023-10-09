@@ -1,6 +1,5 @@
 import { Card, CardHeader, CardContent } from "@/components/ui/card";
-import { Skeleton } from "../ui/skeleton";
-import RocketLottieAnimation from "../header/rocket-lottie-animation";
+import NasaLottieAnimation from "../header/nasa-lottie-animation";
 import Image from "next/image";
 
 export const FeatureCardOne = () => {
@@ -19,7 +18,7 @@ export const FeatureCardOne = () => {
             />
           </div>
           <div className="h-96">
-            <RocketLottieAnimation />
+            <NasaLottieAnimation />
           </div>
         </div>
       </CardContent>

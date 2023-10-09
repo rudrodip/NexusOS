@@ -20,6 +20,7 @@ async function getpageFromParams(params: { slug: string }) {
 
 export default async function AboutPage() {
   const page = await getpageFromParams({ slug: 'about' });
+  const contact = await getpageFromParams({ slug: 'contact' });
 
   if (!page) {
     notFound();
@@ -41,6 +42,7 @@ export default async function AboutPage() {
         />
         <Mdx code={page.body.code} />
         <hr className="my-4 md:my-6" />
+        {contact && <Mdx code={contact.body.code} />}
       </div>
     </article>
   );

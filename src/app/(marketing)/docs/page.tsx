@@ -18,8 +18,8 @@ async function getpageFromParams(params: { slug: string }) {
   return page;
 }
 
-export default async function AboutPage() {
-  const page = await getpageFromParams({ slug: 'about' });
+export default async function DocsPage() {
+  const page = await getpageFromParams({ slug: 'docs' });
 
   if (!page) {
     notFound();
