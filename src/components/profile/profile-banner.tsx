@@ -15,7 +15,7 @@ type ProfileBannerProps = {
 export const ProfileBanner = async (props: ProfileBannerProps) => {
   return (
     <section id="profile-banner">
-      <div className="flex flex-wrap justify-between items-center">
+      <div className="flex flex-wrap justify-between items-center gap-12">
         <div>
           <h1 className="font-heading text-5xl blue-gradient">{props.username}</h1>
           <div className="ml-2 text-sm">
