@@ -33,6 +33,14 @@ export type userDataResponse = {
   };
 };
 
+export type searchRes<T> = {
+  search: {
+    edges: {
+      node: T;
+    }[]
+  }
+}
+
 export type userData = {
   name: string;
   email: string;
@@ -46,29 +54,25 @@ export type userData = {
 };
 
 export type RepoInfoRes = {
-  user: {
-    followers: {
-      totalCount: number;
-    }
-    repositories: {
-      nodes: {
-        forkCount: number;
-        stargazerCount: number;
-        primaryLanguage: {
-          name: string;
-        };
-      }[];
-    };
+  followers: {
+    totalCount: number;
+  }
+  repositories: {
+    nodes: {
+      forkCount: number;
+      stargazerCount: number;
+      primaryLanguage: {
+        name: string;
+      };
+    }[];
   };
 };
 
 export type ContribStats = {
-  user: {
-    contributionsCollection: {
-      totalCommitContributions: number;
-      totalPullRequestContributions: number;
-      totalRepositoryContributions: number;
-      totalIssueContributions: number;
-    }
-  };
+  contributionsCollection: {
+    totalCommitContributions: number;
+    totalPullRequestContributions: number;
+    totalRepositoryContributions: number;
+    totalIssueContributions: number;
+  }
 };
