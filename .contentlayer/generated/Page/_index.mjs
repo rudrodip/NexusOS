@@ -2,5 +2,6 @@
 
 import pages__aboutMdx from './pages__about.mdx.json' assert { type: 'json' }
 import pages__contactMdx from './pages__contact.mdx.json' assert { type: 'json' }
+import pages__docsMdx from './pages__docs.mdx.json' assert { type: 'json' }
 
-export const allPages = [pages__aboutMdx, pages__contactMdx]
+export const allPages = [pages__aboutMdx, pages__contactMdx, pages__docsMdx]
