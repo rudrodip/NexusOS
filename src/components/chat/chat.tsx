@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils";
 import { ChatList } from "@/components/chat/chat-list";
 import { ChatPanel } from "@/components/chat/chat-panel";
 import { EmptyScreen } from "@/components/chat/empty-screen";
-import { ChatScrollAnchor } from "@/components/chat/chat-scroll-anchor";
+// import { ChatScrollAnchor } from "@/components/chat/chat-scroll-anchor";
 import { useToast } from "@/components/ui/use-toast";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
@@ -51,7 +51,7 @@ export function Chat({ id, initialMessages, className }: ChatProps) {
             <EmptyScreen setInput={setInput} />
             <Separator className="my-10" />
             <ChatList messages={messages} />
-            <ChatScrollAnchor trackVisibility={isLoading} />
+            { /*<ChatScrollAnchor trackVisibility={isLoading} /> */}
           </div>
         </div>
       </ScrollArea>
