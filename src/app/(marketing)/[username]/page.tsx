@@ -46,7 +46,7 @@ export default async function Page({
         avatar_url={userData.avatarUrl}
         html_url={userData.bioHTML}
       />
-      {user?.id == dbAccount.userId && <UpdateProfile />}
+      {user && user?.id == dbUser.id && <UpdateProfile />}
       <Separator className="my-6" />
       <GithubRepos repos={pinnedRepos} author={params.username} />
     </section>
