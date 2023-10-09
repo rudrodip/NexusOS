@@ -93,18 +93,19 @@ export function ChatPanel({
     formData: FormData;
   }) => {
     const prompt = `Here is a project requirements:
-      Domain: ${formData.domain}
-      Language: ${formData.language}
-      Desc: ${formData.desc}
-      Potential candidates and their bio are given below, try to give me a list of them who are best suitable for this
-      ${users.map((user, id) => {
-        return `User: ${id + 1}Name: ${user.name}
-        Bio: ${user.bio}
-        Domains of expertise: ${user.domains.join(", ")}  
-        Languages: ${user.languages.join(", ")}
-        `;
-      })}
+    Domain: ${formData.domain}
+    Language: ${formData.language}
+    Desc: ${formData.desc}
+    Potential candidates and their bio are given below, try to give me a list of them who are best suitable for this
+    ${users.slice(0, 5).map((user, id) => {
+      return `User: ${id + 1}
+      Name: ${user.name}
+      Bio: ${user.bio}
+      Domains of expertise: ${user.domains.join(", ")}  
+      Languages: ${user.languages.join(", ")}
       `;
+    })}
+    `;
     dispatch(clearMessages());
     await append({
       id: "pre-prompt",
