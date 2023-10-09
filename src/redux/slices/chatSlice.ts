@@ -22,15 +22,8 @@ const chatSlice = createSlice({
   initialState,
   reducers: {
     setMessages: (state, action: PayloadAction<Message[]>) => {
-      let sum = 0
-      state.messages.forEach(msg => sum += msg.content.length)
-      if (sum >= 10000){
-        // if token overflows then it resets the messages
-        // assuming 4096 tokens equal to 10000 characters
-        state.messages = [state.messages[0]];
-      }
       state.messages = action.payload;
-    },
+    },    
     clearMessages: (state) => {
       state.messages = [state.messages[0]];
     },
