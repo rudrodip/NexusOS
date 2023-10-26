@@ -59,7 +59,7 @@ export default function Page({ params }: { params: { id: string } }) {
                 target="_blank"
                 className="underline"
               >
-                {record?.files?.[0].type.toUpperCase()}
+                {record?.files?.[0].type?.toUpperCase()}
               </a>
             </p>
             <p className="rounded-sm p-1 mr-1">ID: {record?.id}</p>
