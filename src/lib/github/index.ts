@@ -3,9 +3,10 @@ import {
   userData,
   userDataResponse,
   Repository,
-  ReposGraphQLResponse,
+  RepositoryOwner,
   RepoInfoRes,
-  ContribStats
+  ContribStats,
+  searchRes
 } from "@/types/github-types";
 
 export const getUser = async (
@@ -40,7 +41,6 @@ export const getUser = async (
       },
     }
   );
-  console.log(response);
   return response.search.edges[0].node;
 };
 
@@ -48,22 +48,28 @@ export const getPinnedRepos = async (
   username: string | null | undefined,
   access_token: string | null | undefined
 ) => {
-  const response = await graphql<{
-    user: { pinnedItems: { totalCount: number; nodes: Repository[] } };
-  }>(
+  const response = await graphql<searchRes<{
+    pinnedItems: { totalCount: number; nodes: Repository[] };
+  }>>(
     `
     {
-      user(login: "${username}") {
-        pinnedItems(first: 100, types: REPOSITORY) {
-          totalCount
-          nodes {
-            ... on Repository {
-              name
-              description
-              url
-              stargazerCount
-              primaryLanguage {
-                name
+      search (query: "${username}", type: USER, first: 1){
+        edges {
+          node {
+            ... on User{
+              pinnedItems(first: 100, types: REPOSITORY) {
+                totalCount
+                nodes {
+                  ... on Repository {
+                    name
+                    description
+                    url
+                    stargazerCount
+                    primaryLanguage {
+                      name
+                    }
+                  }
+                }
               }
             }
           }
@@ -77,34 +83,44 @@ export const getPinnedRepos = async (
       },
     }
   );
-  return response.user.pinnedItems.nodes;
+  if (response.search.edges.length > 0){
+    return response.search.edges[0].node.pinnedItems.nodes
+  } else {
+    throw new Error('Cannot find user')
+  }
 };
 
 export const getRecentRepos = async (
   username: string | null | undefined,
   access_token: string | null | undefined
 ): Promise<Repository[] | undefined> => {
-  const response = await graphql<ReposGraphQLResponse>(
+  const response = await graphql<searchRes<RepositoryOwner>>(
     `
     {
-      repositoryOwner(login: "${username}", ) {
-        repositories(
-          first: 6
-          
-          ownerAffiliations: OWNER
-          privacy: PUBLIC
-          isFork: false
-          isLocked: false
-          orderBy: {field: UPDATED_AT, direction: DESC}
-        ) {
-          totalCount
-          nodes {
-            url
-            name
-            description
-            stargazerCount
-            primaryLanguage {
-              name
+      search (query: "${username}", type: USER, first: 1){
+        edges {
+          node {
+            ... on User{
+              repositories(
+                first: 6
+                
+                ownerAffiliations: OWNER
+                privacy: PUBLIC
+                isFork: false
+                isLocked: false
+                orderBy: {field: UPDATED_AT, direction: DESC}
+              ) {
+                totalCount
+                nodes {
+                  url
+                  name
+                  description
+                  stargazerCount
+                  primaryLanguage {
+                    name
+                  }
+                }
+              }
             }
           }
         }
@@ -117,22 +133,33 @@ export const getRecentRepos = async (
       },
     }
   );
-  return response.repositoryOwner?.repositories.nodes;
+
+  if (response.search.edges.length > 0){
+    return response.search.edges[0].node.repositories.nodes
+  } else {
+    throw new Error('Cannot find user')
+  }
 };
 
 export const getContribStats = async (
   username: string | null | undefined,
   access_token: string | null | undefined
 ) => {
-  const response = await graphql<ContribStats>(
+  const response = await graphql<searchRes<ContribStats>>(
     `
     {
-      user(login: "${username}"){
-        contributionsCollection{
-          totalCommitContributions
-          totalPullRequestContributions
-          totalRepositoryContributions
-          totalIssueContributions
+      search (query: "${username}", type: USER, first: 1){
+        edges {
+          node {
+            ... on User{
+              contributionsCollection{
+                totalCommitContributions
+                totalPullRequestContributions
+                totalRepositoryContributions
+                totalIssueContributions
+              }
+            }
+          }
         }
       }
     }
@@ -144,31 +171,42 @@ export const getContribStats = async (
     }
   );
 
-  return { 
-    totalCommitContributions: response.user.contributionsCollection.totalCommitContributions,
-    totalPullRequestContributions: response.user.contributionsCollection.totalPullRequestContributions,
-    totalRepositoryContributions: response.user.contributionsCollection.totalRepositoryContributions,
-    totalIssueContributions: response.user.contributionsCollection.totalIssueContributions,
-   };
+  if (response.search.edges.length > 0){
+
+    return {
+      totalCommitContributions: response.search.edges[0].node.contributionsCollection.totalCommitContributions,
+      totalPullRequestContributions: response.search.edges[0].node.contributionsCollection.totalPullRequestContributions,
+      totalRepositoryContributions: response.search.edges[0].node.contributionsCollection.totalRepositoryContributions,
+      totalIssueContributions: response.search.edges[0].node.contributionsCollection.totalIssueContributions,
+    };
+  } else {
+    throw new Error('Cannot find user')
+  }
 }
 
 export const getRepoInfo = async (
   username: string | null | undefined,
   access_token: string | null | undefined
 ) => {
-  const response = await graphql<RepoInfoRes>(
+  const response = await graphql<searchRes<RepoInfoRes>>(
     `
     {
-      user(login: "${username}") {
-        followers{
-          totalCount
-        }
-        repositories(first: 100, isFork: false, privacy: PUBLIC, ownerAffiliations: OWNER) {
-          nodes {
-            forkCount
-            stargazerCount
-            primaryLanguage {
-              name
+      search (query: "${username}", type: USER, first: 1){
+        edges {
+          node {
+            ... on User{
+              followers{
+                totalCount
+              }
+              repositories(first: 100, isFork: false, privacy: PUBLIC, ownerAffiliations: OWNER) {
+                nodes {
+                  forkCount
+                  stargazerCount
+                  primaryLanguage {
+                    name
+                  }
+                }
+              }
             }
           }
         }
@@ -186,15 +224,20 @@ export const getRepoInfo = async (
   let totalStars = 0;
   let languages: string[] = [];
 
-  response.user.repositories.nodes.forEach((repo) => {
-    totalForks += repo.forkCount;
-    totalStars += repo.stargazerCount;
-    repo.primaryLanguage?.name && languages.push(repo.primaryLanguage.name);
-  });
-
-  let tempSet = new Set(languages);
-  languages = Array.from(tempSet); // Convert the Set back to an array
-
-  return { followers: response.user.followers.totalCount, totalForks, totalStars, languages };
+  if (response.search.edges.length > 0){
+    const user = response.search.edges[0].node
+    user.repositories.nodes.forEach((repo) => {
+      totalForks += repo.forkCount;
+      totalStars += repo.stargazerCount;
+      repo.primaryLanguage?.name && languages.push(repo.primaryLanguage.name);
+    });
+  
+    let tempSet = new Set(languages);
+    languages = Array.from(tempSet); // Convert the Set back to an array
+  
+    return { followers: user.followers.totalCount, totalForks, totalStars, languages };
+  } else {
+    throw new Error('Cannot find user')
+  }
 };
 

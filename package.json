@@ -45,6 +45,7 @@
     "contentlayer": "^0.3.4",
     "date-fns": "^2.30.0",
     "framer-motion": "^10.16.4",
+    "intersection-observer": "^0.12.2",
     "lottie-react": "^2.4.0",
     "lucide-react": "^0.279.0",
     "mdast-util-toc": "^7.0.0",
@@ -80,14 +81,14 @@
     "zod": "^3.22.2"
   },
   "devDependencies": {
-    "typescript": "latest",
-    "@types/react": "latest",
     "@types/node": "latest",
+    "@types/react": "latest",
     "@types/react-dom": "latest",
     "autoprefixer": "latest",
+    "eslint": "latest",
+    "eslint-config-next": "latest",
     "postcss": "latest",
     "tailwindcss": "latest",
-    "eslint": "latest",
-    "eslint-config-next": "latest"
+    "typescript": "latest"
   }
 }

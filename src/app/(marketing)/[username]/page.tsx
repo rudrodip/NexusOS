@@ -6,12 +6,14 @@ import { Separator } from "@/components/ui/separator";
 import { ProfileBanner } from "@/components/profile/profile-banner";
 import { GithubRepos } from "@/components/profile/github-repos";
 import { UpdateProfile } from "@/components/profile/update-profile";
+import { getCurrentUser } from "@/lib/session";
 
 export default async function Page({
   params,
 }: {
   params: { username: string };
 }) {
+  const user = await getCurrentUser();
   const dbUser = await db.user.findFirst({
     where: {
       name: params.username,
@@ -44,7 +46,7 @@ export default async function Page({
         avatar_url={userData.avatarUrl}
         html_url={userData.bioHTML}
       />
-      <UpdateProfile />
+      {user && user?.id == dbUser.id && <UpdateProfile />}
       <Separator className="my-6" />
       <GithubRepos repos={pinnedRepos} author={params.username} />
     </section>
