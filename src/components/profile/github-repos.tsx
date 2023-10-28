@@ -19,7 +19,7 @@ export const GithubRepos = (props: GithubRepoProps) => {
               name={repo.name}
               desc={repo.description}
               starCount={repo.stargazerCount}
-              language={repo.primaryLanguage.name}
+              language={repo.primaryLanguage?.name}
               repoUrl={repo.url}
               authorUsername={props.author}
             />

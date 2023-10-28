@@ -18,12 +18,12 @@ export default function Page({ params }: { params: { id: string } }) {
   const { isLoading, isError, record } = useAppSelector(
     (state) => state.recordSlice
   );
-  
+
   useEffect(() => {
-    dispatch(fetchRecord(parseInt(params.id)))
-  }, [dispatch, params.id])
-  if (isError){
-    return <p>Oops</p>
+    dispatch(fetchRecord(parseInt(params.id)));
+  }, [dispatch, params.id]);
+  if (isError) {
+    return <p>Oops</p>;
   }
   return (
     <>
@@ -31,12 +31,14 @@ export default function Page({ params }: { params: { id: string } }) {
         <div className="my-5 max-w-4xl mx-3">
           <h1 className="head-text">{record?.metadata.title}</h1>
           <div className="flex my-4">
-            <Image
-              src={record?.links.badge || ""}
-              alt=""
-              width={200}
-              height={50}
-            />
+            {record?.links.badge && (
+              <Image
+                src={record?.links.badge || ""}
+                alt=""
+                width={200}
+                height={50}
+              />
+            )}
             <p className="rounded-sm p-1 mr-1 bg-green-600 w-32 text-sm mx-3">
               Access: {record?.metadata.access_right.toUpperCase()}
             </p>
@@ -47,7 +49,8 @@ export default function Page({ params }: { params: { id: string } }) {
               Publication date: {record?.metadata.publication_date}
             </p>
             <p className="rounded-sm p-1 mr-1">
-              Resource type: {record?.metadata.resource_type.title.toUpperCase()}
+              Resource type:{" "}
+              {record?.metadata.resource_type.title.toUpperCase()}
             </p>
             <p className="rounded-sm p-1 mr-1">
               Type: {record?.metadata.resource_type.type.toUpperCase()}
@@ -144,9 +147,7 @@ export default function Page({ params }: { params: { id: string } }) {
           )}
           {record?.files && (
             <Card className="bg-transparent text-sm container mx-auto p-5 my-5">
-              <h1 className="text-center font-bold text-xl mb-2">
-                Files
-              </h1>
+              <h1 className="text-center font-bold text-xl mb-2">Files</h1>
               <div className="">
                 <div className="grid grid-cols-3 gap-3">
                   <p>Name</p>
