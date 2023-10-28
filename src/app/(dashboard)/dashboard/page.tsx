@@ -2,7 +2,6 @@ import { getCurrentUser } from "@/lib/session";
 import { db } from "@/lib/db";
 import { notFound } from "next/navigation";
 import { getRecentRepos } from "@/lib/github";
-import { Separator } from "@/components/ui/separator";
 import { GithubRepos } from "@/components/profile/github-repos";
 
 const DocsPage = async () => {
