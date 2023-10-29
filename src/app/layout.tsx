@@ -26,7 +26,7 @@ export const metadata = {
     template: `%s | ${siteConfig.name}`,
   },
   description: siteConfig.description,
-  keywords: ["Image to video", "ImageFlow", "AI", "Generative AI"],
+  keywords: ["NexusOS", "NASA Space Apps Challenge 2023", "NASA Space Apps Challenge", "Generative AI", "AI", "OpenAI", "Github", "Zenodo", "Open Source", "Open Science", "TOPS mission", "Open Science Initiative", "Transform to open science", "Gitlab", "Nasa's Open Science Initiative", "Zenodo API", "Nexus Open Science", "Chatgpt", "Gpt-3.5", "GPT-3.5-turbo", "Nexbee"],
   authors: [
     {
       name: "rudrodip",
